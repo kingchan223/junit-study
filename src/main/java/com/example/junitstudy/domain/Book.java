@@ -1,5 +1,6 @@
 package com.example.junitstudy.domain;
 
+import com.example.junitstudy.web.dto.BookRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +35,10 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 '}';
+    }
+
+    public void update(BookRequest bookRequest) {
+        this.title = bookRequest.getTitle();
+        this.author = bookRequest.getAuthor();
     }
 }
