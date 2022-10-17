@@ -2,6 +2,7 @@ package com.example.junitstudy.service;
 
 import com.example.junitstudy.domain.Book;
 import com.example.junitstudy.domain.BookRepository;
+import com.example.junitstudy.mail.MailSender;
 import com.example.junitstudy.web.dto.BookRequest;
 import com.example.junitstudy.web.dto.BookResponse;
 import com.sun.istack.NotNull;
@@ -18,11 +19,17 @@ import java.util.stream.Collectors;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final MailSender mailSender;
 
     // 1.책 등록
     @Transactional(rollbackFor = RuntimeException.class)
     public BookResponse 책_등록하기(BookRequest bookRequest) {
-        return BookResponse.toDto(bookRepository.save(bookRequest.toEntity()));
+        Book bookPS = bookRepository.save(bookRequest.toEntity());
+        // 책이 잘 저장되었다면 메일을 보낸다.
+        if(!mailSender.send()){
+            throw new RuntimeException("메일 전송에 실패했습니다.");//메일 전송에 실패했다면 익셉션을 날린다.
+        }
+        return BookResponse.toDto(bookPS);
     }
 
     // 2.책 목록 보기
