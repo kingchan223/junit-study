@@ -4,9 +4,21 @@ import com.example.junitstudy.domain.Book;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Data
 public class BookRequest {
+
+    @NotBlank
+    @NotNull
+    @Size(min = 1, max = 50)
     String title;
+
+    @NotBlank
+    @NotNull
+    @Size(min = 1, max = 20)
     String author;
 
     public Book toEntity() {

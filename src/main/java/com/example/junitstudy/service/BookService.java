@@ -3,6 +3,7 @@ package com.example.junitstudy.service;
 import com.example.junitstudy.domain.Book;
 import com.example.junitstudy.domain.BookRepository;
 import com.example.junitstudy.mail.MailSender;
+import com.example.junitstudy.web.dto.BookListResponse;
 import com.example.junitstudy.web.dto.BookRequest;
 import com.example.junitstudy.web.dto.BookResponse;
 import com.sun.istack.NotNull;
@@ -33,8 +34,9 @@ public class BookService {
     }
 
     // 2.책 목록 보기
-    public List<BookResponse> 책_목록보기() {
-        return bookRepository.findAll().stream().map(BookResponse::toDto).collect(Collectors.toList());
+    public BookListResponse 책_목록보기() {
+        return
+                BookListResponse.builder().items(bookRepository.findAll().stream().map(BookResponse::toDto).collect(Collectors.toList())).build();
     }
 
     // 3.책 한건 보기
