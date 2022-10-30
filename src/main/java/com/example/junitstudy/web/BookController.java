@@ -39,23 +39,35 @@ public class BookController {
     @GetMapping("/api/v1/book")
     public ResponseEntity<?> getBookList(){
         return new ResponseEntity<>(
-                CMRespDTO.builder().code(1).msg("save book").body(bookService.책_목록보기()).build(),
-                HttpStatus.CREATED);
+                CMRespDTO.builder().code(1).msg("get book list").body(bookService.책_목록보기()).build(),
+                HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/book/{id}")
-    public ResponseEntity<?> getBookOne(){
-
-        return null;
+    public ResponseEntity<?> getBookOne(@PathVariable Long id){
+        return new ResponseEntity<>(
+                CMRespDTO.builder().code(1).msg("get book").body(
+                        bookService.책_한건보기(id)
+                ).build(),
+                HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/book")
-    public ResponseEntity<?> update(){
-        return null;
+    @PutMapping("/api/v1/book/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BookRequest bookRequest){
+        return new ResponseEntity<>(
+                CMRespDTO.builder().code(1).msg("update book").body(
+                        bookService.책_수정하기(id, bookRequest)
+                ).build(),
+                HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/v1/book")
-    public ResponseEntity<?> delete(){
-        return null;
+    @DeleteMapping("/api/v1/book/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        bookService.책_삭제하기(id);
+        return new ResponseEntity<>(
+                CMRespDTO.builder().code(1).msg("delete book").body(
+                        null
+                ).build(),
+                HttpStatus.OK);
     }
 }

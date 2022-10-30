@@ -53,9 +53,10 @@ public class BookService {
 
     // 5.책 수정
     @Transactional(rollbackFor = RuntimeException.class)
-    public void 책_수정하기(@NotNull Long id, BookRequest bookRequest) {
+    public BookResponse 책_수정하기(@NotNull Long id, BookRequest bookRequest) {
         Book bookPS = bookRepository.findById(id).orElseThrow(RuntimeException::new);
         bookPS.update(bookRequest);
+        return BookResponse.toDto(bookPS);
     }
 
 }
