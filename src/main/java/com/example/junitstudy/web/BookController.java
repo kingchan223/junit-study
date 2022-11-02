@@ -53,7 +53,14 @@ public class BookController {
     }
 
     @PutMapping("/api/v1/book/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BookRequest bookRequest){
+    public ResponseEntity<?> update(@PathVariable Long id,
+                                    @RequestBody BookRequest bookRequest,
+                                    BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            Map<String, String> errorMap = new HashMap<>();
+            for (FieldError fe : bindingResult.getFieldErrors()) errorMap.put(fe.getField(), fe.getDefaultMessage());
+            throw new RuntimeException(errorMap.toString());
+        }
         return new ResponseEntity<>(
                 CMRespDTO.builder().code(1).msg("update book").body(
                         bookService.책_수정하기(id, bookRequest)
