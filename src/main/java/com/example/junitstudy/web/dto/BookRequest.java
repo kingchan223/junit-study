@@ -3,11 +3,13 @@ package com.example.junitstudy.web.dto;
 import com.example.junitstudy.domain.Book;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@NoArgsConstructor
 @Data
 public class BookRequest {
 
