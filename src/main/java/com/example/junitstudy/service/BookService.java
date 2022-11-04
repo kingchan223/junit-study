@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class BookService {
 
     private final BookRepository bookRepository;
-    private final MailSender mailSender;
+    private final MailSender mailSender;//추상적인 것에 의존한다.
 
     // 1.책 등록
     @Transactional(rollbackFor = RuntimeException.class)

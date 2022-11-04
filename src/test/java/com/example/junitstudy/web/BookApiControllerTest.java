@@ -55,6 +55,9 @@ public class BookApiControllerTest {
 
         // then
         DocumentContext dc = JsonPath.parse(response.getBody());
+        System.out.println("dc = " + dc);
+        String s = dc.jsonString();
+        System.out.println("s = " + s);
         String title = dc.read("$.body.title");
         String author = dc.read("$.body.author");
 
